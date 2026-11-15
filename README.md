@@ -9,6 +9,15 @@
   <img src="https://img.shields.io/badge/license-MIT-blue" alt="License: MIT">
 </p>
 
+> [!IMPORTANT]
+> **PC Enhancements Fork — recommended branch: [`release/pc-enhancements`](https://github.com/OleksiiChyrko/BatmanBeginsRecomp/tree/release/pc-enhancements)**
+>
+> This fork combines **native mouse camera control**, **dynamic keyboard/mouse button prompts**, and **SSAA up to 8×** with five selectable downsampling filters (**Bilinear, Bicubic, Lanczos3, Box, Area Weighted**).
+>
+> For all enhancements, use the linked branch rather than the upstream `main` branch. Check this fork's [Releases](https://github.com/OleksiiChyrko/BatmanBeginsRecomp/releases) for a packaged build; if none is published, [build from source](#building-from-source).
+>
+> Based on the [original BatmanBeginsRecomp project](https://github.com/christiansmmc/BatmanBeginsRecomp).
+
 An unofficial native PC port of the original Xbox version of **Batman Begins** (2005), made by static recompilation. The game's x86 executable is translated to C++ ahead of time and built into a 64-bit Windows program. The Xbox kernel, Direct3D 8 and DirectSound calls are implemented on Windows, and everything is drawn with Direct3D 12 and played through XAudio2. There is no emulator and no Xbox BIOS involved.
 
 Built with the [Xbox XBE Recomp](https://github.com/TGP482/XboxXBE-Recomp) tool by TGP482.
@@ -31,7 +40,7 @@ Built with the [Xbox XBE Recomp](https://github.com/TGP482/XboxXBE-Recomp) tool 
 
 ## Installation
 
-1. Download `BatmanBegins.zip` from the [latest release](https://github.com/christiansmmc/BatmanBeginsRecomp/releases/latest) and extract it anywhere.
+1. If a packaged `BatmanBegins.zip` is available in [this fork's Releases](https://github.com/OleksiiChyrko/BatmanBeginsRecomp/releases), download and extract it anywhere. Otherwise, [build the `release/pc-enhancements` branch from source](#building-from-source).
 2. Put your ISO of the US release in the `assets` folder. The files extracted from the disc work too.
 3. Run `BatmanBegins.exe`.
 
@@ -66,7 +75,8 @@ All of these are on the in-game options screen, which opens with <kbd>Esc</kbd>,
 
 - **Display Mode**: Windowed, Borderless or Fullscreen.
 - **Window Size**: 1280x720, 1600x900, 1920x1080 and 2560x1440, up to what the monitor fits.
-- **Internal Resolution**: renders at a whole multiple of the original 640x480 (2x, 3x or 4x), or at the window's own height.
+- **Internal Resolution / SSAA**: renders at a whole multiple of the original 640x480, with supersampling options up to 8x, or at the window's own height. Higher scales require substantially more GPU performance.
+- **Downsampling Filter**: Bilinear, Bicubic, Lanczos3, Box or Area Weighted, selectable in the video settings.
 - **Aspect Ratio**: 16:9 turns on the game's own widescreen mode and keeps the option saved in your game in step with it. 4:3 shows the picture with black bars at the sides.
 - **Texture Filter**: anisotropic filtering from 2x to 16x, or the game's own filter.
 - **VSync**: syncs with the monitor to prevent tearing, without changing the game's speed.
@@ -117,12 +127,12 @@ Tested on one PC, with an NVIDIA GeForce RTX 4070 Ti and a 2560x1440 monitor at 
 
 ## Building from source
 
-Only needed to change the code: the [release](#installation) needs none of this.
+These steps are needed when no packaged build is available, or if you want to change the code.
 
 ### 1. Clone the repository
 
 ```
-git clone https://github.com/christiansmmc/BatmanBeginsRecomp.git
+git clone --branch release/pc-enhancements https://github.com/OleksiiChyrko/BatmanBeginsRecomp.git
 cd BatmanBeginsRecomp
 ```
 
@@ -164,7 +174,7 @@ This writes `dist\Batman Begins`: the program, its runtime libraries, licences, 
 
 ### Make a release zip (optional)
 
-`release.bat` writes `BatmanBegins.zip`, the download described under [Installation](#installation): the program, the compiler that builds the game's code on the first start, and an empty `assets` folder. It never contains game code. The program in it gets the project's own icon (`tools/release_icon.py`), because the build's icon is made from the game's title image. It needs [7-Zip](https://www.7-zip.org/) on the PATH.
+`release.bat` writes `BatmanBegins.zip`, which can be published as a packaged download under [Installation](#installation): the program, the compiler that builds the game's code on the first start, and an empty `assets` folder. It never contains game code. The program in it gets the project's own icon (`tools/release_icon.py`), because the build's icon is made from the game's title image. It needs [7-Zip](https://www.7-zip.org/) on the PATH.
 
 ### Tests
 
